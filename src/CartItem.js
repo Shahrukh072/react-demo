@@ -10,10 +10,63 @@ class CartItem extends React.Component {
             img: ''
         }
        // this.increaseQuantity = this.increaseQuantity.bind(this);
+    //    this.testing();
     }
+
+    //   testing () {
+    //     const promise = new Promise ( (resolve, reject) => {
+    //        setTimeout( () =>{
+    //          resolve('done');
+    //        }, 5000);
+    //     });
+
+    //     promise.then( () => {
+    //         // setstate acts like  a synchronus call
+    //         this.setState( { qty: this.state.qty + 10 } );
+
+    //         console.log('state', this.state);
+    //     });  
+    //   }
+
     increaseQuantity = () => {
-        console.log('this', this.state);
+       // this.state.qty += 1;
+        //console.log('this', this.state);
+
+        // setstate form 1
+        // this.setState({
+        //     qty: this.state.qty + 1
+        // });
+        // this.setState({
+        //     qty: this.state.qty + 1
+        // });
+        // this.setState({
+        //     qty: this.state.qty + 5
+        // });
+         
+        // setstate form 2
+        this.setState( (prevState) => {
+             return {
+                qty: prevState.qty + 1
+             }
+        });    
     }
+
+    decQuantity = () => {
+        const { qty } = this.state;
+
+        if(qty == 0){
+            return;
+        }
+         
+         // setstate form 2
+         this.setState( (prevState) => {
+              return {
+                 qty: prevState.qty - 1
+              }
+         });    
+     }
+
+
     render (){
         const {Price, title, qty} = this.state;
         return (
@@ -35,6 +88,7 @@ class CartItem extends React.Component {
                       <img
                        alt='decrease' className='action-icons'
                         src='https://t3.ftcdn.net/jpg/03/73/49/86/240_F_373498649_nBxauQ0ipBSVrVcMpWWVmTpXu3BLvRyY.jpg'
+                        onClick={this.decQuantity}
                          />
                       <img 
                       alt='delete' className='action-icons'
@@ -58,3 +112,4 @@ const styles = {
 
 
 export default CartItem;
+
