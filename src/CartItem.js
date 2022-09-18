@@ -2,64 +2,15 @@ import React from 'react';
 
 class CartItem extends React.Component {
    
-
-    //   testing () {
-    //     const promise = new Promise ( (resolve, reject) => {
-    //        setTimeout( () =>{
-    //          resolve('done');
-    //        }, 5000);
-    //     });
-
-    //     promise.then( () => {
-    //         // setstate acts like  a synchronus call
-    //         this.setState( { qty: this.state.qty + 10 } );
-
-    //         console.log('state', this.state);
-    //     });  
-    //   }
-
-    increaseQuantity = () => {
-       // this.state.qty += 1;
-        //console.log('this', this.state);
-
-        // setstate form 1
-        // this.setState({
-        //     qty: this.state.qty + 1
-        // });
-        // this.setState({
-        //     qty: this.state.qty + 1
-        // });
-        // this.setState({
-        //     qty: this.state.qty + 5
-        // });
-         
-        // setstate form 2
-        this.setState( (prevState) => {
-             return {
-                qty: prevState.qty + 1
-             }
-        });    
-    }
-
-    decQuantity = () => {
-        const { qty } = this.state;
-
-        if(qty == 0){
-            return;
-        }
-         
-         // setstate form 2
-         this.setState( (prevState) => {
-              return {
-                 qty: prevState.qty - 1
-              }
-         });    
-     }
-
-
     render (){
         console.log('this.props', this.props);
         const {Price, title, qty} = this.props.product;
+        const {
+             product,
+              onIncreaseQuantity, 
+              onDecreaseQuantity, 
+              onhandleDeleteProduct
+             } = this.props;
         return (
             <div  className='cart-item'>
                 {this.props.jsx}
@@ -73,18 +24,20 @@ class CartItem extends React.Component {
                     <div className='cart-item-actions'>
                       {/* Buttons */}
                       <img
-                       alt='increase' className='action-icons'
-                        src='https://t4.ftcdn.net/jpg/01/07/62/07/240_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg' 
-                        onClick={this.increaseQuantity}
+                       alt='increase' 
+                       className='action-icons'
+                       src= 'https://t4.ftcdn.net/jpg/01/07/62/07/240_F_107620769_UwNVSoXnKS4VNcOKoZjPohlEPn83oE38.jpg' 
+                       onClick={() => onIncreaseQuantity(product)}
                         />
                       <img
                        alt='decrease' className='action-icons'
                         src='https://t3.ftcdn.net/jpg/03/73/49/86/240_F_373498649_nBxauQ0ipBSVrVcMpWWVmTpXu3BLvRyY.jpg'
-                        onClick={this.decQuantity}
+                        onClick={() => onDecreaseQuantity(product)}
                          />
                       <img 
                       alt='delete' className='action-icons'
                        src='https://t4.ftcdn.net/jpg/03/46/38/39/240_F_346383913_JQecl2DhpHy2YakDz1t3h0Tk3Ov8hikq.jpg'
+                       onClick={() => onhandleDeleteProduct(product.id)}
                         />
                     </div>
                 </div>
