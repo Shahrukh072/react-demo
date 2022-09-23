@@ -1,40 +1,29 @@
 import React from 'react';
-import CartItem from './CartItem';
+//import''./App.css';
 import Cart from './Cart';
 import Navbar from './Navbar';
+import { db } from "./index";
+
 
 class App extends React.Component {
 
   constructor (){
     super();
     this.state = {
-       products: [
-        {
-          Price: 99,
-          title: 'Watch',
-          qty: 1,
-          img: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-          id: 1
-        },
-        {
-          Price: 999,
-          title: 'Mobile Phone',
-          qty: 10,
-          img: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bW9iaWxlJTIwcGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-          id: 2
-        },
-        {
-          Price: 999,
-          title: 'Laptop',
-          qty: 4,
-          img: 'https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bGFwdG9wc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-          id: 3
-        }
-       ]
+       products: []  
     }
-   // this.increaseQuantity = this.increaseQuantity.bind(this);
-//    this.testing();
 }
+
+componentDidMount () {
+  db
+   .firestore()
+   .collection('products')
+   .get()
+   .then((snapshot) => {
+    console.log(snapshot);
+   })
+}
+
 handleIncreaseQuantity = (product) => {
   console.log('Hey please inc the qty of ', product);
   const { products } =  this.state;
@@ -84,11 +73,11 @@ getCartCount = () => {
 getCartTotal =() => {
   const {products} = this.state;
   let cartTotal = 0;
-  products.map((product) =>{
+  products.map((product) => {
     cartTotal = cartTotal + product.qty * product.Price
-
+    
   })
-  return cartTotal;
+  return cartTotal; 
 }
 
   render() {
